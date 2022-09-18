@@ -54,7 +54,7 @@ header {
 
 .right {
   display: flex;
-  background: black;
+  background: rgb(28, 95, 37);
   border-radius: 16px;
   padding: 12px 20px;
   height: 99%;
@@ -118,6 +118,18 @@ header {
   background: #550072;
   color: rgb(209, 209, 209);
   cursor: not-allowed;
+}
+
+.switch-button {
+  background-image: linear-gradient(
+    to right,
+    #b06bed 0%,
+    #8133c5 21%,
+    #6418a7 52%,
+    #3d056e 78%,
+    #2d0351 100%
+  );
+  color: rgb(209, 209, 209);
 }
 
 .mint-row {
