@@ -12,13 +12,15 @@ import { networks } from './utils/networks';
 const TWITTER_HANDLE = 'aditipolkam';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const tld = ".buidl";
-const CONTRACT_ADDRESS = "0x5d663fa5959eb02ebea67ec0a33d8d49ed02157f"
+const CONTRACT_ADDRESS = "0xe402aba7A4D3e7d8A657990C1D91E9B00B2E5966"
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState('');
   const [domain, setDomain] = useState('');
   const [record, setRecord] = useState('')
   const [network, setNetwork] = useState('');
+  const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const connectWallet = async () => {
     try {
@@ -112,6 +114,31 @@ function App() {
     }
   }
 
+  const updateDomain = async () => {
+    if (!record || !domain) { return }
+    setLoading(true);
+    console.log("Updating domain", domain, "with record", record);
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(CONTRACT_ADDRESS, contractAbi.abi, signer);
+
+        let tx = await contract.setRecord(domain, record);
+        await tx.wait();
+        console.log("Record set https://mumbai.polygonscan.com/tx/" + tx.hash);
+
+        fetchMints();
+        setRecord('');
+        setDomain('');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }
+
   const switchNetwork = async () => {
     if (window.ethereum) {
       try {
@@ -150,6 +177,7 @@ function App() {
       alert('MetaMask is not installed. Please install it to use this app: https://metamask.io/download.html');
     }
   }
+
   const renderInputForm = () => {
     if (network !== 'Polygon Mumbai Testnet') {
       return (
@@ -176,16 +204,26 @@ function App() {
           placeholder='whats ur buidling power'
           onChange={e => setRecord(e.target.value)}
         />
-        <div className="button-container">
-          <button className='cta-button mint-button' onClick={mintDomain}>
+
+        {editing ? (
+          <div className="button-container">
+
+            <button className='cta-button mint-button' disabled={loading} onClick={updateDomain}>
+              Set record
+            </button>
+
+            <button className='cta-button mint-button' onClick={() => { setEditing(false) }}>
+              Cancel
+            </button>
+          </div>
+        ) : (
+          // If editing is not true, the mint button will be returned instead
+          <button className='cta-button mint-button' disabled={loading} onClick={mintDomain}>
             Mint
           </button>
-          {/* <button className='cta-button mint-button' disabled={null} onClick={null}>
-            Set data
-          </button> */}
-        </div>
-
+        )}
       </div>
+
     )
   }
 
