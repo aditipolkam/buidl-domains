@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
 import { ethers } from 'ethers';
-import contractAbi from './utils/contractAbi.json'
+import contractAbi from './utils/contractabi.json'
 
 import polygonLogo from './assets/polygonlogo.png';
 import ethLogo from './assets/ethlogo.png';
