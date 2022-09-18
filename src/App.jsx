@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
+import { ethers } from 'ethers';
 
 // Constants
 const TWITTER_HANDLE = 'aditipolkam';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
+const tld = ".buidl";
+const CONTRACT_ADDRESS = "0x5d663fa5959eb02ebea67ec0a33d8d49ed02157f"
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState('');
+  const [domain, setDomain] = useState('');
+  const [record, setRecord] = useState('')
 
   const connectWallet = async () => {
     try {
@@ -55,6 +60,37 @@ function App() {
     </div>
   )
 
+  const renderInputForm = () => {
+    return (
+      <div className="form-container">
+        <div className="first-row">
+          <input
+            type="text"
+            value={domain}
+            placeholder='domain'
+            onChange={e => setDomain(e.target.value)}
+          />
+          <p className='tld'> {tld} </p>
+        </div>
+        <input
+          type="text"
+          value={record}
+          placeholder='whats ur buidling power'
+          onChange={e => setRecord(e.target.value)}
+        />
+        <div className="button-container">
+          <button className='cta-button mint-button' disabled={null} onClick={null}>
+            Mint
+          </button>
+          <button className='cta-button mint-button' disabled={null} onClick={null}>
+            Set data
+          </button>
+        </div>
+
+      </div>
+    )
+  }
+
   useEffect(() => {
     checkIfWalletIsConnected();
   })
@@ -73,7 +109,7 @@ function App() {
         </div>
 
         {!currentAccount && renderNotConnectedContainer()}
-
+        {currentAccount && renderInputForm()}
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
           <a
@@ -81,7 +117,7 @@ function App() {
             href={TWITTER_LINK}
             target="_blank"
             rel="noreferrer"
-          >{`built with @${TWITTER_HANDLE}`}</a>
+          >{`built by @${TWITTER_HANDLE}`}</a>
         </div>
       </div>
     </div>
