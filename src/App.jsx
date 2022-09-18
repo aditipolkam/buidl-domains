@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
 import { ethers } from 'ethers';
+import contractAbi from './utils/contractAbi.json'
 
 // Constants
 const TWITTER_HANDLE = 'aditipolkam';
@@ -60,6 +61,43 @@ function App() {
     </div>
   )
 
+  const mintDomain = async () => {
+    if (!domain) { return; }
+    if (domain.length < 3) {
+      alert('Domain must be at least 3 characters long.');
+      return;
+    }
+    const price = domain.length === 3 ? '0.5' : domain.length === 4 ? '0.3' : '0.1';
+    console.log("Minting domain", domain, "with price", price);
+
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(CONTRACT_ADDRESS, contractAbi.abi, signer);
+        console.log("Going to pop wallet now to pay gas..")
+        let tx = await contract.register(domain, { value: ethers.utils.parseEther(price) });
+        const receipt = await tx.wait();
+        if (receipt.status === 1) {
+          console.log("Domain minted! https://mumbai.polygonscan.com/tx/" + tx.hash)
+          tx = await contract.setRecord(domain, record);
+          await tx.wait();
+          console.log("Record set! https://mumbai.polygonscan.com/tx/" + tx.hash);
+
+          setRecord('');
+          setDomain('');
+        }
+        else {
+          alert("Transaction failed! Please try again");
+        }
+      }
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
   const renderInputForm = () => {
     return (
       <div className="form-container">
@@ -79,12 +117,12 @@ function App() {
           onChange={e => setRecord(e.target.value)}
         />
         <div className="button-container">
-          <button className='cta-button mint-button' disabled={null} onClick={null}>
+          <button className='cta-button mint-button' onClick={mintDomain}>
             Mint
           </button>
-          <button className='cta-button mint-button' disabled={null} onClick={null}>
+          {/* <button className='cta-button mint-button' disabled={null} onClick={null}>
             Set data
-          </button>
+          </button> */}
         </div>
 
       </div>
