@@ -2,10 +2,11 @@ import { ethers } from "ethers";
 import {
   CONTRACT_ADDRESS,
   OFFLINE_CONTRACT_ABI,
-  SEPOLIA_RPC,
+  RPC,
 } from "./config/constants";
-// import { handleDeposit, handleWithdraw } from "./services/balance-tracker";
-const provider = new ethers.JsonRpcProvider(SEPOLIA_RPC);
+import userService from "./services/user.service";
+
+const provider = new ethers.JsonRpcProvider(RPC);
 const contract = new ethers.Contract(
   CONTRACT_ADDRESS,
   OFFLINE_CONTRACT_ABI,
@@ -13,13 +14,13 @@ const contract = new ethers.Contract(
 );
 
 async function main() {
-  contract.on("Register", async (from, value) => {
-    console.log(from, value);
+  contract.on("Register", async (from, tokenid, name, event) => {
+    userService.handleRegister(from, tokenid, name, event);
   });
 
-  contract.on("*", async (event) => {
-    console.log(event);
-  });
+  // contract.on("*", async (event) => {
+  //   console.log(event);
+  // });
 }
 
 main()
