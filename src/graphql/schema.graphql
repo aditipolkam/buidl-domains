@@ -1,0 +1,15 @@
+type User {
+  id: Int!
+  name: String!
+  user_address: String!
+  token_id: Int!
+  token_uri: String!
+  registration_tx: String!
+  block_number: Int!
+  timestamp: String!
+}
+
+type Query {
+  users: [User!]!
+  user(id: Int!): User
+}

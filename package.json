@@ -9,9 +9,11 @@
     "dev": "nodemon src/index.ts"
   },
   "dependencies": {
+    "@apollo/server": "^4.11.2",
     "@prisma/client": "^6.1.0",
     "dotenv": "^16.4.7",
     "ethers": "^6.13.4",
+    "graphql": "^16.10.0",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2"
   },
