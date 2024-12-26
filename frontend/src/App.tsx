@@ -1,24 +1,18 @@
-import { Suspense } from "react";
-import NewUserInfo from "./components/NewUserInfo";
-import AuthenticatedUserFlow from "./components/AuthenticatedUserFlow";
-import { usePrivy } from "@privy-io/react-auth";
+import { Routes, Route } from "react-router-dom";
 import MainLayout from "./layout/MainLayout.tsx";
 
-function App() {
-  return (
-    <main>
-      <MainLayout>
-        <Suspense fallback={<div className="text-center">Loading...</div>}>
-          <ClientAuthWrapper />
-        </Suspense>
-      </MainLayout>
-    </main>
-  );
-}
+import Home from "./components/Home.tsx";
+import Claim from "./components/Claim.tsx";
 
-function ClientAuthWrapper() {
-  const { authenticated } = usePrivy();
-  return authenticated ? <AuthenticatedUserFlow /> : <NewUserInfo />;
-}
+const App = () => {
+  return (
+    <MainLayout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/claim" element={<Claim />} />
+      </Routes>
+    </MainLayout>
+  );
+};
 
 export default App;

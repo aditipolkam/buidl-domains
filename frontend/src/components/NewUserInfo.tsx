@@ -1,7 +1,6 @@
-import { usePrivy } from "@privy-io/react-auth";
+import { Link } from "react-router-dom";
 
 export default function NewUserInfo() {
-  const { login } = usePrivy();
   return (
     <div className="container mx-auto px-16 pt-40 h-full">
       <div className="grid md:grid-cols-2 gap-12 items-center justify-center">
@@ -39,12 +38,12 @@ export default function NewUserInfo() {
         </div>
         <div className="flex flex-col justify-center items-center">
           <img src="vitalik-nft.svg" alt="Vitalik NFT" />
-          <button
-            onClick={login}
+          <Link
+            to={"/claim"}
             className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-6 py-3 mt-10 rounded-full transition-all"
           >
             Claim Your Offline Id
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -1621,6 +1621,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/cookie@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.6.0.tgz#eac397f28bf1d6ae0ae081363eca2f425bedf0d5"
+  integrity sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==
+
 "@types/debug@^4.1.7":
   version "4.1.12"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.12.tgz#a155f21690871953410df4b6b6f53187f0500917"
@@ -2471,6 +2476,11 @@ cookie-es@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cookie-es/-/cookie-es-1.2.2.tgz#18ceef9eb513cac1cb6c14bcbf8bdb2679b34821"
   integrity sha512-+W7VmiVINB+ywl1HGXJXmrqkOhpKrIiVZV6tQuV54ZyQC7MMuBt81Vc336GMLoHBq5hV/F9eXgt5Mnx0Rha5Fg==
+
+cookie@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-1.0.2.tgz#27360701532116bd3f1f9416929d176afe1e4610"
+  integrity sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==
 
 crc-32@^1.2.0:
   version "1.2.2"
@@ -4385,6 +4395,23 @@ react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-router-dom@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-7.1.1.tgz#9e76fb63a762ba5da13032f5fd9e4a24946396b6"
+  integrity sha512-vSrQHWlJ5DCfyrhgo0k6zViOe9ToK8uT5XGSmnuC2R3/g261IdIMpZVqfjD6vWSXdnf5Czs4VA/V60oVR6/jnA==
+  dependencies:
+    react-router "7.1.1"
+
+react-router@7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-7.1.1.tgz#88f5657fa5b8f0b918c7222ec710de0274d00b2e"
+  integrity sha512-39sXJkftkKWRZ2oJtHhCxmoCrBCULr/HAH4IT5DHlgu/Q0FCPV0S4Lx+abjDTx/74xoZzNYDYbOZWlJjruyuDQ==
+  dependencies:
+    "@types/cookie" "^0.6.0"
+    cookie "^1.0.1"
+    set-cookie-parser "^2.6.0"
+    turbo-stream "2.4.0"
+
 react@^18.3.1:
   version "18.3.1"
   resolved "https://registry.yarnpkg.com/react/-/react-18.3.1.tgz#49ab892009c53933625bd16b2533fc754cab2891"
@@ -4882,6 +4909,11 @@ tslib@^2.1.0, tslib@^2.3.0, tslib@^2.3.1, tslib@^2.8.0:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
+
+turbo-stream@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/turbo-stream/-/turbo-stream-2.4.0.tgz#1e4fca6725e90fa14ac4adb782f2d3759a5695f0"
+  integrity sha512-FHncC10WpBd2eOmGwpmQsWLDoK4cqsA/UT/GqNoaKOQnT8uzhtCbg3EoUDMvqpOSAI0S26mr0rkjzbOO6S3v1g==
 
 tweetnacl-util@^0.15.1:
   version "0.15.1"

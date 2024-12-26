@@ -42,9 +42,11 @@ export default function Navigation() {
             >
               Docs
             </a> */}
-            <button className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all">
-              {user?.wallet?.address}
-            </button>
+            {user && (
+              <button className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all">
+                {user?.wallet?.address}
+              </button>
+            )}
           </div>
         </div>
       </div>
