@@ -1,7 +1,7 @@
 import { usePrivy } from "@privy-io/react-auth";
 
 export default function RegisteredUser() {
-  const { user } = usePrivy();
+  const { user, logout } = usePrivy();
 
   return (
     <div className="container mx-auto px-16 pt-40 h-full">
@@ -13,6 +13,7 @@ export default function RegisteredUser() {
           Your cosmic coordinates are registered. You may proceed to navigate
           our celestial services.
         </p>
+        <button onClick={logout}>Logout</button>
       </div>
     </div>
   );
