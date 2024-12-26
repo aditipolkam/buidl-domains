@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #4989a7;
+  --secondary: #ffafbd;
+}
+
+@keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+
+.stars,
+.twinkling {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.stars {
+  background: #000 url("https://i.imgur.com/YKcGPCt.png") repeat top center;
+  z-index: -2;
+}
+
+.twinkling {
+  background: transparent url("https://i.imgur.com/XYMF4ca.png") repeat top
+    center;
+  z-index: -1;
+  animation: move-twink-back 200s linear infinite;
+}
+
+@layer base {
+  body {
+    @apply overflow-x-hidden bg-gradient-to-b from-[#000000] to-[#4989a7] min-h-screen text-white;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#4989a7] hover:bg-[#3a7a96] text-white font-bold py-2 px-4 rounded transition duration-300;
+  }
+
+  .btn-secondary {
+    @apply bg-[#ffafbd] hover:bg-[#ff9eb1] text-[#4989a7] font-bold py-2 px-4 rounded transition duration-300;
+  }
+
+  .card {
+    @apply bg-black bg-opacity-50 backdrop-blur-md rounded-lg p-6 shadow-lg border border-[#4989a7];
+  }
+
+  .input-field {
+    @apply block w-full p-2 mb-4 border border-[#4989a7] rounded bg-black bg-opacity-50 text-white placeholder-gray-400;
+  }
+}
