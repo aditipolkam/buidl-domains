@@ -6,6 +6,7 @@ import { PrivyProvider } from "@privy-io/react-auth";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { PRIVY_APP_ID, SERVER_ENDPOINT } from "./utils/constants.ts";
 import { BrowserRouter } from "react-router-dom";
+import { SmartWalletsProvider } from "@privy-io/react-auth/smart-wallets";
 
 const client = new ApolloClient({
   uri: SERVER_ENDPOINT,
@@ -32,9 +33,11 @@ createRoot(document.getElementById("root")!).render(
           },
         }}
       >
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <SmartWalletsProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </SmartWalletsProvider>
       </PrivyProvider>
     </ApolloProvider>
   </StrictMode>

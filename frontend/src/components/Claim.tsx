@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { useUserByName } from "../hooks/useUserByName.ts";
+import { useSmartWallets } from "@privy-io/react-auth/smart-wallets";
+import { sepolia } from "viem/chains";
+import { CONTRACT_ADDRESS } from "../utils/constants.ts";
 
 export default function Claim() {
   const [username, setUsername] = useState("");
   const { user: existingUser } = useUserByName(username);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
+  const { client } = useSmartWallets();
 
   useEffect(() => {
     if (username.length > 0) {
@@ -16,6 +20,15 @@ export default function Claim() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
+  };
+
+  const handleClaim = async () => {
+    if (!client) return;
+    const txHash = await client.sendTransaction({
+      account: client.account,
+      chain: sepolia,
+      to: CONTRACT_ADDRESS as `0x${string}`,
+    });
   };
   return (
     <main className="container mx-auto px-4 max-w-2xl pt-40 text-center">

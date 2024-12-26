@@ -1,7 +1,7 @@
 import { usePrivy } from "@privy-io/react-auth";
 
 export default function Navigation() {
-  const { user } = usePrivy();
+  const { user, login } = usePrivy();
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
       <div className="container mx-auto px-16 mt-10">
@@ -42,9 +42,16 @@ export default function Navigation() {
             >
               Docs
             </a> */}
-            {user && (
+            {user ? (
               <button className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all">
                 {user?.wallet?.address}
+              </button>
+            ) : (
+              <button
+                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all"
+                onClick={login}
+              >
+                Connect
               </button>
             )}
           </div>
