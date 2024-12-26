@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
 import SuccessfulClaim from "./SuccessfulClaim";
 
 const nameSuggestions = [
@@ -24,7 +23,6 @@ export default function UnregisteredUser() {
   const [selectedName, setSelectedName] = useState("");
   const [workflowStep, setWorkflowStep] = useState(WorkflowStep.NameSelection);
   const [address, setAddress] = useState("");
-  const { updateUserInfo } = useAuth();
 
   const handleStartWorkflow = async () => {
     if (!selectedName) {
@@ -48,7 +46,6 @@ export default function UnregisteredUser() {
     try {
       // Simulate API call to register user
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      updateUserInfo({ name: selectedName, address });
       setWorkflowStep(WorkflowStep.Success);
     } catch (error) {
       alert("Error in quantum entanglement: " + (error as Error).message);

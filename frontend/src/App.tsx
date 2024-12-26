@@ -1,23 +1,24 @@
 import { Suspense } from "react";
 import NewUserInfo from "./components/NewUserInfo";
 import AuthenticatedUserFlow from "./components/AuthenticatedUserFlow";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { usePrivy } from "@privy-io/react-auth";
+import MainLayout from "./layout/MainLayout.tsx";
 
 function App() {
   return (
     <main>
-      <AuthProvider>
+      <MainLayout>
         <Suspense fallback={<div className="text-center">Loading...</div>}>
           <ClientAuthWrapper />
         </Suspense>
-      </AuthProvider>
+      </MainLayout>
     </main>
   );
 }
 
 function ClientAuthWrapper() {
-  const { isLoggedIn } = useAuth();
-  return isLoggedIn ? <AuthenticatedUserFlow /> : <NewUserInfo />;
+  const { authenticated } = usePrivy();
+  return authenticated ? <AuthenticatedUserFlow /> : <NewUserInfo />;
 }
 
 export default App;

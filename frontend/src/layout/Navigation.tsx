@@ -1,4 +1,7 @@
+import { usePrivy } from "@privy-io/react-auth";
+
 export default function Navigation() {
+  const { user } = usePrivy();
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
       <div className="container mx-auto px-16 mt-10">
@@ -15,7 +18,7 @@ export default function Navigation() {
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            <a
+            {/* <a
               href="/"
               className="text-white hover:text-[#ffafbd] transition-colors"
             >
@@ -38,9 +41,9 @@ export default function Navigation() {
               className="text-white hover:text-[#ffafbd] transition-colors"
             >
               Docs
-            </a>
+            </a> */}
             <button className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all">
-              Launch App
+              {user?.wallet?.address}
             </button>
           </div>
         </div>
