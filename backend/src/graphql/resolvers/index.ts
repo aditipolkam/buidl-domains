@@ -7,9 +7,14 @@ const resolvers = {
     users: async () => {
       return prisma.user.findMany();
     },
-    user: async (_: any, args: { id: number }) => {
+    user: async (_: any, args: { address: string }) => {
       return prisma.user.findUnique({
-        where: { id: args.id },
+        where: { user_address: args.address },
+      });
+    },
+    user_by_name: async (_: any, args: { name: string }) => {
+      return prisma.user.findFirst({
+        where: { name: args.name },
       });
     },
   },

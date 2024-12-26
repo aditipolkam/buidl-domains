@@ -8,9 +8,8 @@ datasource db {
 }
 
 model User {
-  id              Int      @id @default(autoincrement())
-  name            String   @db.VarChar(255)
-  user_address    String   @db.VarChar(255)
+  user_address    String   @db.VarChar(255) @id
+  name            String   @db.VarChar(255) @unique
   token_id        Int
   token_uri       String
   registration_tx String   @db.VarChar(255)

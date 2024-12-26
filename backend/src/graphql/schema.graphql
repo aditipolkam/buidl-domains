@@ -1,5 +1,4 @@
 type User {
-  id: Int!
   name: String!
   user_address: String!
   token_id: Int!
@@ -11,5 +10,6 @@ type User {
 
 type Query {
   users: [User!]!
-  user(id: Int!): User
+  user(address: String!): User
+  user_by_name(name: String!): User
 }
