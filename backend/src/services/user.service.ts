@@ -19,7 +19,6 @@ const handleRegister = async (
       name,
       from,
       Number(BigInt(tokenid)),
-      "",
       event.log.transactionHash,
       event.log.blockNumber
     );

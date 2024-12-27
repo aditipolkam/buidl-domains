@@ -6,7 +6,6 @@ const insert = async (
   name: string,
   address: string,
   tokenId: number,
-  tokenURI: string,
   registrationTx: string,
   blockNumber: number
 ) => {
@@ -15,7 +14,6 @@ const insert = async (
       name: name,
       user_address: address,
       token_id: tokenId,
-      token_uri: tokenURI,
       registration_tx: registrationTx,
       block_number: blockNumber,
       timestamp: new Date(),

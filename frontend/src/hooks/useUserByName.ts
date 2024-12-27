@@ -9,7 +9,6 @@ const GET_USER_BY_NAME = gql`
       user_address
       name
       token_id
-      token_uri
       registration_tx
       block_number
       timestamp
