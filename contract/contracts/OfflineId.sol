@@ -67,7 +67,7 @@ contract OfflineId is ERC721URIStorage {
             abi.encodePacked(
                 '{"name": "',
                 _name,
-                '", "description": "A domain on the Buidl Name Service.", "image": "data:image/svg+xml;base64,',
+                '", "description": "A domain on the Offline Id Name Service.", "image": "data:image/svg+xml;base64,',
                 Base64.encode(bytes(finalSvg)),
                 '","length":"',
                 strLen,

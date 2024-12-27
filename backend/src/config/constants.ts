@@ -3,7 +3,7 @@ import abi from "../data/offlineid.json";
 config();
 
 export const RPC = process.env["RPC"] as string;
-export const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+export const CONTRACT_ADDRESS = process.env["CONTRACT_ADDRESS"];
 export const OFFLINE_CONTRACT_ABI = abi;
 
 console.log(RPC);
