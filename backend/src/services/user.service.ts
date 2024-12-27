@@ -4,23 +4,25 @@ const handleRegister = async (
   from: string,
   tokenid: number,
   name: string,
-  event: any
+  transactionHash: string,
+  blockHash: string,
+  blockNumber: number
 ) => {
   try {
     console.log({
       from,
       tokenid,
       name,
-      transactionHash: event.log.transactionHash,
-      blockHash: event.log.blockHash,
-      blockNumber: event.log.blockNumber,
+      transactionHash,
+      blockHash,
+      blockNumber,
     });
     await insert(
       name,
       from,
       Number(BigInt(tokenid)),
-      event.log.transactionHash,
-      event.log.blockNumber
+      transactionHash,
+      blockNumber
     );
   } catch (err) {
     const error = err as Error;

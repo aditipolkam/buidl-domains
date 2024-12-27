@@ -9,6 +9,7 @@ import {
   RPC,
 } from "./config/constants";
 import userService from "./services/user.service";
+import indexerService from "./services/indexer.service";
 
 const provider = new ethers.JsonRpcProvider(RPC);
 const contract = new ethers.Contract(
@@ -19,7 +20,14 @@ const contract = new ethers.Contract(
 
 async function main() {
   contract.on("Register", async (from, tokenid, name, event) => {
-    userService.handleRegister(from, tokenid, name, event);
+    userService.handleRegister(
+      from,
+      tokenid,
+      name,
+      event.log.transactionHash,
+      event.log.blockHash,
+      event.log.blockNumber
+    );
   });
 
   // contract.on("*", async (event) => {
@@ -39,6 +47,23 @@ async function startServer() {
   });
 
   console.log(`🚀 Server ready at ${url}`);
+
+  const events = await indexerService.fetchPastEvents(
+    contract,
+    "Register",
+    19771351
+  );
+
+  events.map((event) => {
+    userService.handleRegister(
+      event.args[0],
+      event.args[1],
+      event.args[2],
+      event.transactionHash,
+      event.blockHash,
+      event.blockNumber
+    );
+  });
 }
 
 startServer().catch((error) => {
