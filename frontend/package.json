@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.12.4",
     "@privy-io/react-auth": "^1.98.4",
+    "ethers": "^6.13.4",
     "graphql": "^16.10.0",
     "permissionless": "^0.2.23",
     "react": "^18.3.1",

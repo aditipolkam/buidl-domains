@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { useUserByName } from "../hooks/useUserByName.ts";
 import { useSmartWallets } from "@privy-io/react-auth/smart-wallets";
-import { sepolia } from "viem/chains";
-import { CONTRACT_ADDRESS } from "../utils/constants.ts";
+import { CONTRACT_ADDRESS, ABI } from "../utils/constants.ts";
+import { encodeFunctionData } from "viem";
+import { baseSepolia } from "viem/chains";
 
 export default function Claim() {
   const [username, setUsername] = useState("");
   const { user: existingUser } = useUserByName(username);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-  const { client } = useSmartWallets();
+  const { client: smartWalletClient } = useSmartWallets();
 
   useEffect(() => {
     if (username.length > 0) {
@@ -23,12 +24,18 @@ export default function Claim() {
   };
 
   const handleClaim = async () => {
-    if (!client) return;
-    const txHash = await client.sendTransaction({
-      account: client.account,
-      chain: sepolia,
-      to: CONTRACT_ADDRESS as `0x${string}`,
+    if (!smartWalletClient) return;
+    const tx = await smartWalletClient.sendTransaction({
+      chain: baseSepolia,
+      to: CONTRACT_ADDRESS,
+      value: BigInt(0),
+      data: encodeFunctionData({
+        abi: ABI,
+        functionName: "register",
+        args: [username],
+      }),
     });
+    console.log(tx);
   };
   return (
     <main className="container mx-auto px-4 max-w-2xl pt-40 text-center">
@@ -53,6 +60,7 @@ export default function Claim() {
         <button
           className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-6 py-3 mt-10 rounded-full transition-all"
           disabled={!isAvailable}
+          onClick={handleClaim}
         >
           Claim
         </button>
