@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { usePrivy } from "@privy-io/react-auth";
 import { useNavigate } from "react-router-dom";
-
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
+import { useUserByAddress } from "../hooks/useUserByAddress.ts";
+import { useSmartWallets } from "@privy-io/react-auth/smart-wallets";
 
 interface Profile {
-  name: string;
+  display_name: string;
   bio: string;
   profession: string;
   pfp: string | null;
@@ -15,12 +16,19 @@ interface Profile {
 function Dashboard() {
   const { user, authenticated } = usePrivy();
   const navigate = useNavigate();
-  // if (!user || !authenticated) {
-  //   navigate("/");
-  // }
+  if (!user || !authenticated) {
+    navigate("/");
+  }
+
+  const { client: smartWalletClient } = useSmartWallets();
+  const { user: existingUserProfile } = useUserByAddress(
+    smartWalletClient?.account.address as `0x${string}`
+  );
+
+  console.log(existingUserProfile);
 
   const [profile, setProfile] = useState<Profile>({
-    name: "",
+    display_name: existingUserProfile ? existingUserProfile.display_name : "",
     bio: "",
     profession: "",
     pfp: null,
@@ -42,15 +50,20 @@ function Dashboard() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
+            <label className="block text-sm font-medium text-gray-400">
+              Display Name
+            </label>
             <Input
-              label="Display Name"
-              value={profile.name}
+              value={profile.display_name}
               onChange={(e) =>
-                setProfile((prev) => ({ ...prev, name: e.target.value }))
+                setProfile((prev) => ({
+                  ...prev,
+                  display_name: e.target.value,
+                }))
               }
               className="bg-white/10 border-white/20 text-white"
             />
-
+            {/* 
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-400">
@@ -73,10 +86,12 @@ function Dashboard() {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
 
+            <label className="block text-sm font-medium text-gray-400">
+              Profession
+            </label>
             <Input
-              label="Profession"
               value={profile.profession}
               onChange={(e) =>
                 setProfile((prev) => ({

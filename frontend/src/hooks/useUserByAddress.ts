@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useQuery, gql } from "@apollo/client";
+import { User } from "../utils/types.ts";
 
 const GET_USER_BY_ADDRESS = gql`
   query User($address: String!) {
@@ -12,12 +13,15 @@ const GET_USER_BY_ADDRESS = gql`
       registration_tx
       block_number
       timestamp
+      display_name
+      bio
+      profession
     }
   }
 `;
 
 export function useUserByAddress(address: string) {
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 

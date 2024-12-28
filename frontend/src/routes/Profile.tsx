@@ -1,27 +1,32 @@
-import { usePrivy } from "@privy-io/react-auth";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useUserByName } from "../hooks/useUserByName.ts";
 
 export default function Profile() {
-  //   const [searchParams] = useSearchParams();
   const searchParams = useParams();
-  const profile = {
-    username: searchParams.username,
-    name: "John Doe",
-    bio: "Blockchain enthusiast and developer",
-    profession: "Software Engineer",
-    user_address: "0x83be038BAfbf19170490FDD29de89e491bCF8Cf3",
-    token_id: "1234",
-    txn_hash: "0x123...abc",
-    timestamp: "2024-12-28T21:42:00Z",
-    pfp: null,
-    cover: null,
-  };
-
-  const { user, authenticated } = usePrivy();
-  const navigate = useNavigate();
-  // if (!user || !authenticated) {
-  //   navigate("/");
-  // }
+  const { user } = useUserByName(searchParams.username as string);
+  if (!user) {
+    return (
+      <div className="container mx-auto px-4 max-w-4xl">
+        <div className="bg-white/5 backdrop-blur-lg rounded-2xl overflow-hidden text-center py-16">
+          {/* <div className="h-48 bg-gradient-to-r from-[#ffafbd] to-[#4989a7]" /> */}
+          <div className="px-8 py-6 mt-16">
+            <h1 className="text-6xl font-bold text-white mb-4">404</h1>
+            <p className="text-gray-400 text-lg">
+              Oops! The page you are looking for doesn't exist.
+            </p>
+            <div className="mt-8">
+              <a
+                href="/"
+                className="inline-block px-6 py-3 text-white font-semibold bg-gradient-to-r from-[#4989a7] to-[#ffafbd] rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              >
+                Go Back Home
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 max-w-4xl">
@@ -32,8 +37,10 @@ export default function Profile() {
           <div className="flex items-end gap-6 mb-6">
             <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#4989a7] to-[#ffafbd] border-4 border-gray-900" />
             <div>
-              <h1 className="text-3xl font-bold text-white">{profile.name}</h1>
-              <p className="text-gray-400">{profile.username}.offline</p>
+              <h1 className="text-3xl font-bold text-white">
+                {user.display_name ? user.display_name : "---"}
+              </h1>
+              <p className="text-gray-400">{user.name}.offline</p>
             </div>
           </div>
 
@@ -41,12 +48,14 @@ export default function Profile() {
             <div className="space-y-4">
               <div>
                 <h2 className="text-lg font-semibold text-white">Bio</h2>
-                <p className="text-gray-400">{profile.bio}</p>
+                <p className="text-gray-400">{user.bio ? user.bio : "---"}</p>
               </div>
 
               <div>
                 <h2 className="text-lg font-semibold text-white">Profession</h2>
-                <p className="text-gray-400">{profile.profession}</p>
+                <p className="text-gray-400">
+                  {user.profession ? user.profession : "----"}
+                </p>
               </div>
             </div>
 
@@ -56,22 +65,25 @@ export default function Profile() {
                 <div className="space-y-2">
                   <div>
                     <span className="text-gray-500">Address:</span>
-                    <p className="text-white font-mono">
-                      {profile.user_address}
-                    </p>
+                    <p className="text-white font-mono">{user.user_address}</p>
                   </div>
                   <div>
                     <span className="text-gray-500">Token ID:</span>
-                    <p className="text-white font-mono">{profile.token_id}</p>
+                    <p className="text-white font-mono">{user.token_id}</p>
                   </div>
                   <div>
                     <span className="text-gray-500">Transaction:</span>
-                    <p className="text-white font-mono">{profile.txn_hash}</p>
+                    <p
+                      className="text-white font-mono overflow-hidden text-ellipsis whitespace-nowrap"
+                      title={user.registration_tx}
+                    >
+                      {user.registration_tx}
+                    </p>
                   </div>
                   <div>
                     <span className="text-gray-500">Claimed:</span>
                     <p className="text-white">
-                      {new Date(profile.timestamp).toLocaleDateString()}
+                      {new Date(parseInt(user.timestamp)).toLocaleDateString()}
                     </p>
                   </div>
                 </div>

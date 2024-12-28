@@ -14,20 +14,15 @@ export default function Claim() {
   const { user: usernameRegistered } = useUserByName(username);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const { client: smartWalletClient } = useSmartWallets();
+
   const navigate = useNavigate();
+  if (!smartWalletClient) {
+    navigate("/");
+  }
 
-  // if (!smartWalletClient) {
-  //   navigate("/");
-  // }
-
-  const existingUser = useUserByAddress(
+  const { user: existingUser } = useUserByAddress(
     smartWalletClient?.account.address as `0x${string}`
   );
-  console.log(existingUser);
-
-  // if (existingUser) {
-  //   navigate("/dashboard");
-  // }
 
   useEffect(() => {
     if (username.length > 0) {
@@ -51,6 +46,38 @@ export default function Claim() {
     });
     console.log(tx);
   };
+
+  if (existingUser) {
+    return (
+      <div className="container mx-auto px-4 max-w-4xl">
+        <div className="bg-white/5 backdrop-blur-lg rounded-2xl overflow-hidden text-center py-16">
+          <div className="px-8 py-6 mt-16">
+            <h1 className="text-3xl font-bold text-white mb-4">
+              You have already claimed the name:{" "}
+              <span className="text-[#ffafbd]">{existingUser.name}</span>
+            </h1>
+            <p className="text-gray-400 text-lg mb-8">
+              Head over to your dashboard to set up your profile or view it.
+            </p>
+            <div className="flex justify-center gap-4">
+              <a
+                href="/dashboard"
+                className="inline-block px-6 py-3 text-white font-semibold bg-gradient-to-r from-[#4989a7] to-[#ffafbd] rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              >
+                Go to Dashboard
+              </a>
+              <a
+                href={`/profile/${existingUser.name}`}
+                className="inline-block px-6 py-3 text-white font-semibold bg-gradient-to-r from-[#ffafbd] to-[#4989a7] rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              >
+                View Profile
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="container mx-auto px-4 max-w-md">
       <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 space-y-6">
