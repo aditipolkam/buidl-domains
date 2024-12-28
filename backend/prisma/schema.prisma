@@ -14,4 +14,7 @@ model User {
   registration_tx String   @db.VarChar(255)
   block_number    Int
   timestamp       DateTime @default(now()) @db.Timestamp(6)
+  display_name     String?
+  bio              String?
+  profession       String?
 }

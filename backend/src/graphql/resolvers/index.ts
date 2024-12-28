@@ -18,6 +18,28 @@ const resolvers = {
       });
     },
   },
+  Mutation: {
+    update_user: async (
+      _: any,
+      args: {
+        address: string;
+        display_name?: string;
+        bio?: string;
+        profession?: string;
+      }
+    ) => {
+      const { address, display_name, bio, profession } = args;
+
+      return prisma.user.update({
+        where: { user_address: address },
+        data: {
+          display_name,
+          bio,
+          profession,
+        },
+      });
+    },
+  },
 };
 
 export default resolvers;

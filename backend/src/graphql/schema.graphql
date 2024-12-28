@@ -5,10 +5,22 @@ type User {
   registration_tx: String!
   block_number: Int!
   timestamp: String!
+  display_name: String
+  bio: String
+  profession: String
 }
 
 type Query {
   users: [User!]!
   user(address: String!): User
   user_by_name(name: String!): User
+}
+
+type Mutation {
+  update_user(
+    address: String!
+    display_name: String
+    bio: String
+    profession: String
+  ): User
 }
