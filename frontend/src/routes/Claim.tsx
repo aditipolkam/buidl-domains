@@ -15,10 +15,10 @@ export default function Claim() {
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const { client: smartWalletClient } = useSmartWallets();
 
-  const navigate = useNavigate();
-  if (!smartWalletClient) {
-    navigate("/");
-  }
+  // const navigate = useNavigate();
+  // if (!smartWalletClient) {
+  //   navigate("/");
+  // }
 
   const { user: existingUser } = useUserByAddress(
     smartWalletClient?.account.address as `0x${string}`
@@ -35,9 +35,7 @@ export default function Claim() {
   const handleClaim = async () => {
     if (!smartWalletClient) return;
     const tx = await smartWalletClient.sendTransaction({
-      chain: baseSepolia,
       to: CONTRACT_ADDRESS,
-      value: BigInt(0),
       data: encodeFunctionData({
         abi: ABI,
         functionName: "register",
