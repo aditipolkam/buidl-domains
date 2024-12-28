@@ -41,9 +41,11 @@ createRoot(document.getElementById("root")!).render(
         }}
       >
         <SmartWalletsProvider>
+          {/* <Provider> */}
           <BrowserRouter>
             <App />
           </BrowserRouter>
+          {/* </Provider> */}
         </SmartWalletsProvider>
       </PrivyProvider>
     </ApolloProvider>

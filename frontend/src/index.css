@@ -7,6 +7,30 @@
   --secondary: #ffafbd;
 }
 
+body {
+  background: linear-gradient(
+    to bottom,
+    #20293c,
+    #151b27
+  ); /* gray-900 to gray-800 */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  margin: 0; /* Remove default margin */
+  font-family: sans-serif; /* Optional: Set a default font */
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-slide {
+  animation: slide 20s linear infinite;
+}
+
 @keyframes move-twink-back {
   from {
     background-position: 0 0;
