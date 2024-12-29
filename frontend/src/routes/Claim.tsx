@@ -31,7 +31,10 @@ export default function Claim() {
   }, [usernameRegistered, username]);
 
   const handleClaim = async () => {
-    if (!smartWalletClient) return;
+    if (!smartWalletClient) {
+      alert("Login First");
+      return;
+    }
     const tx = await smartWalletClient.sendTransaction({
       to: CONTRACT_ADDRESS,
       data: encodeFunctionData({
