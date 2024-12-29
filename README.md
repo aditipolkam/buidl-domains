@@ -12,11 +12,15 @@ It consists of three main components:
 
 ---
 
-### Deployments
+### Deployments and Documentation
 
 Backend: https://dns-api.aditipolkam.me
+
 Frontend: https://decentralized-name-service.vercel.app
+
 Contract: https://sepolia.basescan.org/token/0xddb8e92e50afc322009eaf50165b9e3deff10d81
+
+API Docs: [/backend/README.md](/backend/README.md)
 
 ---
 
