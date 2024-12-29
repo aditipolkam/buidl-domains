@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { NewsTicker } from "../components/news-ticker.tsx";
 import { Button } from "../components/ui/button.tsx";
 
 function Home() {
