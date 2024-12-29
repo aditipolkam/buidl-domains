@@ -1,10 +1,36 @@
-import { useState } from "react";
-import { usePrivy } from "@privy-io/react-auth";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { useUserByAddress } from "../hooks/useUserByAddress.ts";
 import { useSmartWallets } from "@privy-io/react-auth/smart-wallets";
+import { gql, useMutation } from "@apollo/client";
+
+const UPDATE_USER = gql`
+  mutation Update_user(
+    $address: String!
+    $display_name: String
+    $bio: String
+    $profession: String
+  ) {
+    update_user(
+      address: $address
+      display_name: $display_name
+      bio: $bio
+      profession: $profession
+    ) {
+      bio
+      name
+      display_name
+      profession
+      registration_tx
+      block_number
+      timestamp
+      token_id
+      user_address
+    }
+  }
+`;
 
 interface Profile {
   display_name: string;
@@ -14,30 +40,49 @@ interface Profile {
   cover: string | null;
 }
 function Dashboard() {
-  const { user, authenticated } = usePrivy();
+  const [profile, setProfile] = useState<Profile>({
+    display_name: "",
+    bio: "",
+    profession: "",
+    pfp: null,
+    cover: null,
+  });
   const navigate = useNavigate();
-  if (!user || !authenticated) {
-    navigate("/");
-  }
+  const [updateUser] = useMutation(UPDATE_USER);
 
   const { client: smartWalletClient } = useSmartWallets();
   const { user: existingUserProfile } = useUserByAddress(
     smartWalletClient?.account.address as `0x${string}`
   );
 
-  console.log(existingUserProfile);
+  useEffect(() => {
+    if (existingUserProfile) {
+      setProfile({
+        display_name: existingUserProfile.display_name || "",
+        bio: existingUserProfile.bio || "",
+        profession: existingUserProfile.profession || "",
+        pfp: null,
+        cover: null,
+      });
+    }
+  }, [existingUserProfile]);
 
-  const [profile, setProfile] = useState<Profile>({
-    display_name: existingUserProfile ? existingUserProfile.display_name : "",
-    bio: "",
-    profession: "",
-    pfp: null,
-    cover: null,
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Updating profile:", profile);
+
+    try {
+      await updateUser({
+        variables: {
+          address: smartWalletClient?.account.address,
+          display_name: profile.display_name,
+          bio: profile.bio,
+          profession: profile.profession,
+        },
+      });
+      navigate(`/profile/${existingUserProfile?.name}`);
+    } catch (err) {
+      console.error("Error updating user:", err);
+    }
   };
 
   return (

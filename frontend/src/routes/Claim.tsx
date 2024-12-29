@@ -3,9 +3,7 @@ import { useUserByName } from "../hooks/useUserByName.ts";
 import { useSmartWallets } from "@privy-io/react-auth/smart-wallets";
 import { CONTRACT_ADDRESS, ABI } from "../utils/constants.ts";
 import { encodeFunctionData } from "viem";
-import { baseSepolia } from "viem/chains";
 import { useUserByAddress } from "../hooks/useUserByAddress.ts";
-import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button.tsx";
 import { Input } from "../components/ui/input.tsx";
 
