@@ -28,7 +28,14 @@ body {
 }
 
 .animate-slide {
-  animation: slide 20s linear infinite;
+  display: inline-block;
+  animation: slide 40s linear infinite;
+}
+
+@media (max-width: 640px) {
+  .animate-slide {
+    animation-duration: 20s;
+  }
 }
 
 @keyframes move-twink-back {

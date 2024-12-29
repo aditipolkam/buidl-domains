@@ -1,31 +1,39 @@
-"use client";
-
 import { useEffect, useState } from "react";
-
-const claims = [
-  "aditi.offline claimed",
-  "rap.offline claimed",
-  "crypto.offline claimed",
-  "web3.offline claimed",
-];
+import { useUsers } from "../hooks/useUsers";
 
 export function NewsTicker() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const { loading, error, users } = useUsers();
+  const [claims, setClaims] = useState<string[]>([]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % claims.length);
-    }, 3000);
+    if (users.length > 0) {
+      const newClaims = users.map(
+        (user: { name: string; user_address: string }) =>
+          `${user.name}.offline claimed by ${user.user_address}`
+      );
+      setClaims(newClaims);
+    }
+  }, [users]);
 
-    return () => clearInterval(interval);
-  }, []);
+  if (loading)
+    return (
+      <div className="w-full py-2 text-center text-[#4989a7]">Loading...</div>
+    );
+  if (error)
+    return (
+      <div className="w-full py-2 text-center text-red-500">
+        Error fetching data
+      </div>
+    );
 
   return (
     <div className="w-full overflow-hidden bg-gradient-to-r from-[#4989a7]/10 to-[#ffafbd]/10 py-2">
       <div className="animate-slide whitespace-nowrap">
-        <span className="inline-block px-4 text-[#4989a7]">
-          {claims[currentIndex]}
-        </span>
+        {claims.concat(claims).map((claim, index) => (
+          <span key={index} className="inline-block px-20 text-[#ffafbd]">
+            {claim}
+          </span>
+        ))}
       </div>
     </div>
   );

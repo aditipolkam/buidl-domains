@@ -1,4 +1,5 @@
 import { usePrivy } from "@privy-io/react-auth";
+import { Link } from "react-router-dom";
 
 export default function Navigation() {
   const { user, login, logout } = usePrivy();
@@ -19,12 +20,20 @@ export default function Navigation() {
 
           <div className="hidden md:flex items-center space-x-8">
             {user ? (
-              <button
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all"
-                onClick={logout}
-              >
-                Logout
-              </button>
+              <>
+                <Link
+                  className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all"
+                  to={"/dashboard"}
+                >
+                  Dashboard
+                </Link>
+                <button
+                  className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all"
+                  onClick={logout}
+                >
+                  Logout
+                </button>
+              </>
             ) : (
               <button
                 className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all"
