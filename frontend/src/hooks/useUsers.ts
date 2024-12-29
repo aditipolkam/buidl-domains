@@ -6,6 +6,9 @@ const GET_USERS = gql`
     users {
       name
       user_address
+      bio
+      display_name
+      profession
     }
   }
 `;

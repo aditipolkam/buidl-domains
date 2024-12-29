@@ -5,6 +5,7 @@ import Home from "./routes/Home.tsx";
 import Claim from "./routes/Claim.tsx";
 import Dashboard from "./routes/Dashboard.tsx";
 import Profile from "./routes/Profile.tsx";
+import Discover from "./routes/Discover.tsx";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/claim" element={<Claim />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/discover" element={<Discover />} />
       </Routes>
     </MainLayout>
   );

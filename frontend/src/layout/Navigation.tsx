@@ -18,7 +18,7 @@ export default function Navigation() {
             </a>
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
             {user ? (
               <>
                 <Link
@@ -26,6 +26,13 @@ export default function Navigation() {
                   to={"/dashboard"}
                 >
                   Dashboard
+                </Link>
+
+                <Link
+                  className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all"
+                  to={"/discover"}
+                >
+                  Discover
                 </Link>
                 <button
                   className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-full transition-all"
