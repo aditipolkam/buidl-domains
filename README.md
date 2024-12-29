@@ -22,6 +22,9 @@ Contract: https://sepolia.basescan.org/token/0xddb8e92e50afc322009eaf50165b9e3de
 
 API Docs: [/backend/README.md](/backend/README.md)
 
+Basic Architecture:
+![Architecture](/assets/architecture.png)
+
 ---
 
 ### About the app:
