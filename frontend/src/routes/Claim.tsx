@@ -53,7 +53,7 @@ export default function Claim() {
           <div className="px-8 py-6 mt-16">
             <h1 className="text-3xl font-bold text-white mb-4">
               You have already claimed the name:{" "}
-              <span className="text-[#ffafbd]">{domain.name}</span>
+              <span className="text-primary">{domain.name}</span>
             </h1>
             <p className="text-gray-400 text-lg mb-8">
               Head over to your dashboard to set up your profile or view it.
@@ -61,13 +61,13 @@ export default function Claim() {
             <div className="flex justify-center gap-4">
               <a
                 href="/dashboard"
-                className="inline-block px-6 py-3 text-white font-semibold bg-gradient-to-r from-[#4989a7] to-[#ffafbd] rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                className="inline-block px-6 py-3 text-white font-semibold bg-primary rounded-lg shadow-md hover:shadow-lg transition-shadow"
               >
                 Go to Dashboard
               </a>
               <a
                 href={`/profile/${domain.name}`}
-                className="inline-block px-6 py-3 text-white font-semibold bg-gradient-to-r from-[#ffafbd] to-[#4989a7] rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                className="inline-block px-6 py-3 text-white font-semibold bg-primary rounded-lg shadow-md hover:shadow-lg transition-shadow"
               >
                 View Profile
               </a>

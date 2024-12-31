@@ -33,9 +33,6 @@ createRoot(document.getElementById("root")!).render(
             createOnLogin: "users-without-wallets",
             // createOnLogin: "all-users",
           },
-          // defaultChain: sepolia,
-          // supportedChains: [sepolia],
-
           defaultChain: baseSepolia,
           supportedChains: [baseSepolia],
         }}

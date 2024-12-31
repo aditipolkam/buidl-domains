@@ -19,7 +19,7 @@ export default function Profile() {
               <h1 className="text-3xl font-bold text-white">
                 {domain.display_name ? domain.display_name : "---"}
               </h1>
-              <p className="text-gray-400">{domain.name}.offline</p>
+              <p className="text-gray-400">{domain.name}.buidl</p>
             </div>
           </div>
 

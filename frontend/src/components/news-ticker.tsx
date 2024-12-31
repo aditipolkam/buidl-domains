@@ -9,7 +9,7 @@ export function NewsTicker() {
     if (domains.length > 0) {
       const newClaims = domains.map(
         (user: { name: string; address: string }) =>
-          `${user.name}.offline claimed by ${user.address}`
+          `${user.name}.buidl claimed by ${user.address}`
       );
       setClaims(newClaims);
     }

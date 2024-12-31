@@ -91,7 +91,7 @@ function Dashboard() {
       <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 space-y-8">
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold text-white">Setup Profile</h1>
-          <p className="text-gray-400">Customize your Offline ID profile</p>
+          <p className="text-gray-400">Customize your Buidl ID profile</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">

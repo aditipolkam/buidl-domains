@@ -27,7 +27,7 @@ function ProfileCard({ domain }: ProfileCardProps) {
             <h3 className="text-lg font-semibold text-white truncate">
               {domain.name}
             </h3>
-            <p className="text-[#4989a7] text-sm">{domain.name}.offline</p>
+            <p className="text-[#4989a7] text-sm">{domain.name}.buidl</p>
             <p className="text-gray-400 text-sm mt-1">
               {domain.profession ? domain.profession : "---"}
             </p>

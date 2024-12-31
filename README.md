@@ -1,12 +1,12 @@
 # Decentralized Name Service
 
-This project is a **Decentralized Name Service (DNS)**, enabling users to register, manage, and resolve ids for the Offline Protocol on the blockchain. The project leverages blockchain technology to provide a decentralized, secure, and transparent naming system.
+This project is a **Decentralized Name Service (DNS)**, enabling users to register, manage, and resolve ids on the blockchain. The project leverages blockchain technology to provide a decentralized, secure, and transparent naming system.
 
 ![Decentralized Name Service](/assets/landing.png)
 
 It consists of three main components:
 
-1. **Contract**: The smart contract `OfflineId.sol` manages name registration and ownership on the blockchain.
+1. **Contract**: The smart contract `BuidlDomains.sol` manages name registration and ownership on the blockchain.
 2. **Backend**: A GraphQL server built with Node.js and TypeScript provides an API layer for interacting with the contract data that is indexed and managing metadata.
 3. **Frontend**: A React application built with Vite serves as the user interface for interacting with the decentralized name service, using Privy smart wallets.
 
@@ -14,11 +14,11 @@ It consists of three main components:
 
 ### Deployments and Documentation
 
-Backend: https://dns-api.aditipolkam.me
+Backend: https://buidl-domains.aditipolkam.me/
 
 Frontend: https://decentralized-name-service.vercel.app
 
-Contract: https://sepolia.basescan.org/token/0xddb8e92e50afc322009eaf50165b9e3deff10d81
+Contract: https://sepolia.basescan.org/token/0x53bd9bdff89037a97375e33ae1c412e94d7f2c6c
 
 API Docs: [/backend/README.md](/backend/README.md)
 
@@ -90,13 +90,13 @@ Navigate to the `contract` folder to set up the smart contract.
      ```
    - Deploy the contract to the local node:
      ```bash
-     npx hardhat ignition deploy ignition/modules/OfflineId.ts --network localhost
+     npx hardhat ignition deploy ignition/modules/buidl.ts --network localhost
      ```
 
 4. (Optional) Deploy to a testnet - Configure your `.env` file with the necessary keys (e.g., `PRIVATE_KEY`, `ALCHEMY_KEY`):.
    - Deploy:
      ```bash
-     npx hardhat ignition deploy ignition/modules/OfflineId.ts --network <testnet-name>
+     npx hardhat ignition deploy ignition/modules/buidl.ts --network <testnet-name>
      ```
 
 ---
