@@ -14,9 +14,9 @@ export function Button({
   const baseStyles =
     "rounded-lg font-medium transition-all duration-200 inline-flex items-center justify-center";
   const variants = {
-    primary: "bg-[#4989a7] hover:bg-[#4989a7]/90 text-white",
-    secondary: "bg-[#ffafbd] hover:bg-[#ffafbd]/90 text-white",
-    outline: "border-2 border-[#4989a7] text-[#4989a7] hover:bg-[#4989a7]/10",
+    primary: "bg-primary hover:bg-[#4989a7]/90 text-white",
+    secondary: "bg-secondary hover:bg-[#ffafbd]/90 text-white",
+    outline: "border-2 border-primary text-[#4989a7] hover:bg-[#4989a7]/10",
   };
   const sizes = {
     sm: "px-4 py-2 text-sm",

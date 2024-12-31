@@ -2,12 +2,16 @@ import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 
 const GET_USERS = gql`
-  query User {
-    users {
+  query Domains {
+    domains {
       name
-      user_address
-      bio
+      address
+      token_id
+      transaction_hash
+      block_number
+      timestamp
       display_name
+      bio
       profession
     }
   }
@@ -19,6 +23,6 @@ export function useUsers() {
   return {
     loading,
     error,
-    users: data?.users || [],
+    domains: data?.domains || [],
   };
 }

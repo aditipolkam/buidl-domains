@@ -1,10 +1,11 @@
 import ProfileCard from "../components/profile-card";
-import { useUsers } from "../hooks/useUsers.ts";
-import { User } from "../utils/types.ts";
+import { useUsers } from "../hooks/useDomains.ts";
+import { Domain } from "../utils/types.ts";
 
 export default function Discover() {
-  const { users, loading, error } = useUsers();
+  const { domains, loading, error } = useUsers();
   // const [search, setSearch] = useState("");
+  console.log(error);
 
   return (
     <div className="container mx-auto px-4">
@@ -18,13 +19,13 @@ export default function Discover() {
         </div>
       ) : (
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {users.map((user: User) => (
-            <ProfileCard key={user.name} user={user} />
+          {domains.map((domain: Domain) => (
+            <ProfileCard key={domains.name} domain={domain} />
           ))}
         </div>
       )}
 
-      {users.length === 0 && !loading && (
+      {domains.length === 0 && !loading && (
         <div className="text-center py-12">
           <p className="text-gray-400">No users found matching your search.</p>
         </div>

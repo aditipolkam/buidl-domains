@@ -26,7 +26,7 @@ createRoot(document.getElementById("root")!).render(
           appearance: {
             theme: "dark",
             accentColor: "#676FFF",
-            logo: "/offline.svg",
+            logo: "/logo.svg",
           },
           // Create embedded wallets for users who don't have a wallet
           embeddedWallets: {

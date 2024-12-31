@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { useUserByName } from "../hooks/useUserByName.ts";
+import { useDomainByName } from "../hooks/useDomainByName.ts";
 import { useSmartWallets } from "@privy-io/react-auth/smart-wallets";
 import { CONTRACT_ADDRESS, ABI } from "../utils/constants.ts";
 import { encodeFunctionData } from "viem";
-import { useUserByAddress } from "../hooks/useUserByAddress.ts";
+import { useDomainByAddress } from "../hooks/useDomainByAddress.ts";
 import { Button } from "../components/ui/button.tsx";
 import { Input } from "../components/ui/input.tsx";
 
 export default function Claim() {
   const [username, setUsername] = useState("");
-  const { user: usernameRegistered } = useUserByName(username);
+  const { domain: usernameRegistered } = useDomainByName(username);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const { client: smartWalletClient } = useSmartWallets();
 
@@ -18,7 +18,7 @@ export default function Claim() {
   //   navigate("/");
   // }
 
-  const { user: existingUser } = useUserByAddress(
+  const { domain } = useDomainByAddress(
     smartWalletClient?.account.address as `0x${string}`
   );
 
@@ -46,14 +46,14 @@ export default function Claim() {
     console.log(tx);
   };
 
-  if (existingUser) {
+  if (domain) {
     return (
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="bg-white/5 backdrop-blur-lg rounded-2xl overflow-hidden text-center py-16">
           <div className="px-8 py-6 mt-16">
             <h1 className="text-3xl font-bold text-white mb-4">
               You have already claimed the name:{" "}
-              <span className="text-[#ffafbd]">{existingUser.name}</span>
+              <span className="text-[#ffafbd]">{domain.name}</span>
             </h1>
             <p className="text-gray-400 text-lg mb-8">
               Head over to your dashboard to set up your profile or view it.
@@ -66,7 +66,7 @@ export default function Claim() {
                 Go to Dashboard
               </a>
               <a
-                href={`/profile/${existingUser.name}`}
+                href={`/profile/${domain.name}`}
                 className="inline-block px-6 py-3 text-white font-semibold bg-gradient-to-r from-[#ffafbd] to-[#4989a7] rounded-lg shadow-md hover:shadow-lg transition-shadow"
               >
                 View Profile

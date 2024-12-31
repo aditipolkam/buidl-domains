@@ -2,32 +2,32 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
-import { useUserByAddress } from "../hooks/useUserByAddress.ts";
+import { useDomainByAddress } from "../hooks/useDomainByAddress.ts";
 import { useSmartWallets } from "@privy-io/react-auth/smart-wallets";
 import { gql, useMutation } from "@apollo/client";
 
-const UPDATE_USER = gql`
-  mutation Update_user(
+const UPDATE_METADATA = gql`
+  mutation Mutation(
     $address: String!
-    $display_name: String
+    $displayName: String
     $bio: String
     $profession: String
   ) {
-    update_user(
+    update_metadata(
       address: $address
-      display_name: $display_name
+      display_name: $displayName
       bio: $bio
       profession: $profession
     ) {
-      bio
       name
-      display_name
-      profession
-      registration_tx
+      address
+      token_id
+      transaction_hash
       block_number
       timestamp
-      token_id
-      user_address
+      display_name
+      bio
+      profession
     }
   }
 `;
@@ -48,30 +48,30 @@ function Dashboard() {
     cover: null,
   });
   const navigate = useNavigate();
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [updateUser] = useMutation(UPDATE_METADATA);
 
   const { client: smartWalletClient } = useSmartWallets();
-  const { user: existingUserProfile } = useUserByAddress(
+  const { domain } = useDomainByAddress(
     smartWalletClient?.account.address as `0x${string}`
   );
 
   useEffect(() => {
-    if (existingUserProfile) {
+    if (domain) {
       setProfile({
-        display_name: existingUserProfile.display_name || "",
-        bio: existingUserProfile.bio || "",
-        profession: existingUserProfile.profession || "",
+        display_name: domain.display_name || "",
+        bio: domain.bio || "",
+        profession: domain.profession || "",
         pfp: null,
         cover: null,
       });
     }
-  }, [existingUserProfile]);
+  }, [domain]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      await updateUser({
+      const d = await updateUser({
         variables: {
           address: smartWalletClient?.account.address,
           display_name: profile.display_name,
@@ -79,7 +79,8 @@ function Dashboard() {
           profession: profile.profession,
         },
       });
-      navigate(`/profile/${existingUserProfile?.name}`);
+      console.log(d);
+      navigate(`/profile/${domain?.name}`);
     } catch (err) {
       console.error("Error updating user:", err);
     }

@@ -10,7 +10,7 @@
 body {
   background: linear-gradient(
     to bottom,
-    #20293c,
+    #0c0a29,
     #151b27
   ); /* gray-900 to gray-800 */
   min-height: 100vh; /* Ensure it covers the full viewport height */

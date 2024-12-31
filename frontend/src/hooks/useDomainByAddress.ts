@@ -1,27 +1,27 @@
-// src/hooks/useUserByName.ts
+// src/hooks/useUserByAddress.ts
 
 import { useState, useEffect } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { User } from "../utils/types.ts";
+import { Domain } from "../utils/types.ts";
 
-const GET_USER_BY_NAME = gql`
-  query User($name: String!) {
-    user_by_name(name: $name) {
-      user_address
-      name
-      token_id
-      registration_tx
-      block_number
-      timestamp
-      display_name
+const GET_DOMAIN_BY_ADDRESS = gql`
+  query Domain($address: String!) {
+    domain(address: $address) {
+      address
       bio
+      block_number
+      display_name
+      name
       profession
+      timestamp
+      token_id
+      transaction_hash
     }
   }
 `;
 
-export function useUserByName(name: string) {
-  const [user, setUser] = useState<User | null>(null);
+export function useDomainByAddress(address: string) {
+  const [domain, setDomain] = useState<Domain | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -29,9 +29,9 @@ export function useUserByName(name: string) {
     data,
     loading: queryLoading,
     error: queryError,
-  } = useQuery(GET_USER_BY_NAME, {
-    variables: { name },
-    skip: !name,
+  } = useQuery(GET_DOMAIN_BY_ADDRESS, {
+    variables: { address },
+    skip: !address,
   });
 
   useEffect(() => {
@@ -41,10 +41,10 @@ export function useUserByName(name: string) {
       setError(queryError);
       setLoading(false);
     } else if (data) {
-      setUser(data.user_by_name);
+      setDomain(data.domain);
       setLoading(false);
     }
   }, [queryLoading, queryError, data]);
 
-  return { user, loading, error };
+  return { domain, loading, error };
 }

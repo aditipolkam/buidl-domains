@@ -1,8 +1,8 @@
-export interface User {
-  user_address: string;
+export interface Domain {
+  address: string;
   name: string;
   token_id: number;
-  registration_tx: string;
+  transaction_hash: string;
   block_number: number;
   timestamp: string;
   display_name: string;
