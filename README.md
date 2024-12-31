@@ -16,7 +16,7 @@ It consists of three main components:
 
 Backend: https://buidl-domains.aditipolkam.me/
 
-Frontend: https://decentralized-name-service.vercel.app
+Frontend: https://buidl-domains.vercel.app/
 
 Contract: https://sepolia.basescan.org/token/0x53bd9bdff89037a97375e33ae1c412e94d7f2c6c
 
@@ -61,8 +61,8 @@ Ensure you have the following installed on your system:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/aditipolkam/decentralized-name-service.git
-cd decentralized-name-service
+git clone https://github.com/aditipolkam/buidl-domains
+cd buidl-domains
 ```
 
 ---
