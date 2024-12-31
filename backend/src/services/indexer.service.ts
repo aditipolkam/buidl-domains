@@ -1,4 +1,7 @@
 import { ethers, EventLog } from "ethers";
+import { RPC } from "../config/constants";
+
+const provider = new ethers.JsonRpcProvider(RPC);
 
 const fetchPastEvents = async (
   contract: ethers.Contract,
@@ -8,17 +11,26 @@ const fetchPastEvents = async (
   try {
     const eventFilter = contract.filters[eventName]();
 
-    // Replace with the desired block range
-    const toBlock = "latest"; // End block
+    const toBlock = "latest";
 
-    // Query past events
     const events = (await contract.queryFilter(
       eventFilter,
       fromBlock,
       toBlock
     )) as EventLog[];
 
-    return events;
+    const eventsWithTimestamps = await Promise.all(
+      events.map(async (event) => {
+        const block = await provider.getBlock(event.blockNumber);
+        if (block)
+          return {
+            ...event,
+            timestamp: block.timestamp,
+          };
+      })
+    );
+
+    return eventsWithTimestamps;
   } catch (error) {
     console.error("Error fetching past events:", error);
     return [];

@@ -7,16 +7,17 @@ const insert = async (
   address: string,
   tokenId: number,
   registrationTx: string,
-  blockNumber: number
+  blockNumber: number,
+  blockTimestamp: number
 ) => {
-  await prisma.user.create({
+  await prisma.domain.create({
     data: {
       name: name,
-      user_address: address,
+      address: address,
       token_id: tokenId,
-      registration_tx: registrationTx,
+      transaction_hash: registrationTx,
       block_number: blockNumber,
-      timestamp: new Date(),
+      timestamp: blockTimestamp,
     },
   });
 };

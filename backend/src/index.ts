@@ -3,20 +3,12 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import typeDefs from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
-import {
-  CONTRACT_ADDRESS,
-  OFFLINE_CONTRACT_ABI,
-  RPC,
-} from "./config/constants";
+import { CONTRACT_ADDRESS, CONTRACT_ABI, RPC } from "./config/constants";
 import userService from "./services/user.service";
 import indexerService from "./services/indexer.service";
 
 const provider = new ethers.JsonRpcProvider(RPC);
-const contract = new ethers.Contract(
-  CONTRACT_ADDRESS,
-  OFFLINE_CONTRACT_ABI,
-  provider
-);
+const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
 
 async function main() {
   contract.on("Register", async (from, tokenid, name, event) => {
@@ -26,7 +18,8 @@ async function main() {
       name,
       event.log.transactionHash,
       event.log.blockHash,
-      event.log.blockNumber
+      event.log.blockNumber,
+      event.log.blockTimestamp
     );
   });
 
@@ -51,17 +44,18 @@ async function startServer() {
   const events = await indexerService.fetchPastEvents(
     contract,
     "Register",
-    19771351
+    19927020
   );
-
   events.map((event) => {
+    if (!event) return;
     userService.handleRegister(
       event.args[0],
       event.args[1],
       event.args[2],
       event.transactionHash,
       event.blockHash,
-      event.blockNumber
+      event.blockNumber,
+      event.timestamp
     );
   });
 }

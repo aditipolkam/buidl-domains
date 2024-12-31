@@ -6,7 +6,8 @@ const handleRegister = async (
   name: string,
   transactionHash: string,
   blockHash: string,
-  blockNumber: number
+  blockNumber: number,
+  blockTimestamp: number
 ) => {
   try {
     console.log({
@@ -16,13 +17,15 @@ const handleRegister = async (
       transactionHash,
       blockHash,
       blockNumber,
+      blockTimestamp,
     });
     await insert(
       name,
       from,
       Number(BigInt(tokenid)),
       transactionHash,
-      blockNumber
+      blockNumber,
+      blockTimestamp
     );
   } catch (err) {
     const error = err as Error;

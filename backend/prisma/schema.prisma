@@ -8,12 +8,24 @@ datasource db {
 }
 
 model User {
-  user_address    String   @db.VarChar(255) @id
-  name            String   @db.VarChar(255) @unique
+  user_address    String   @id @db.VarChar(255)
+  name            String   @unique @db.VarChar(255)
   token_id        Int
   registration_tx String   @db.VarChar(255)
   block_number    Int
   timestamp       DateTime @default(now()) @db.Timestamp(6)
+  display_name    String?
+  bio             String?
+  profession      String?
+}
+
+model Domain {
+  address          String  @id @db.VarChar(255)
+  name             String  @unique @db.VarChar(255)
+  token_id         Int
+  transaction_hash String  @db.VarChar(255)
+  block_number     Int
+  timestamp        Int
   display_name     String?
   bio              String?
   profession       String?

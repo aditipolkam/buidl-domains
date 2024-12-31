@@ -4,22 +4,22 @@ const prisma = new PrismaClient();
 
 const resolvers = {
   Query: {
-    users: async () => {
-      return prisma.user.findMany();
+    domains: async () => {
+      return prisma.domain.findMany();
     },
-    user: async (_: any, args: { address: string }) => {
-      return prisma.user.findUnique({
-        where: { user_address: args.address },
+    domain: async (_: any, args: { address: string }) => {
+      return prisma.domain.findUnique({
+        where: { address: args.address },
       });
     },
-    user_by_name: async (_: any, args: { name: string }) => {
-      return prisma.user.findFirst({
+    domain_by_name: async (_: any, args: { name: string }) => {
+      return prisma.domain.findFirst({
         where: { name: args.name },
       });
     },
   },
   Mutation: {
-    update_user: async (
+    update_metadata: async (
       _: any,
       args: {
         address: string;
@@ -29,9 +29,9 @@ const resolvers = {
       }
     ) => {
       const { address, display_name, bio, profession } = args;
-
-      return prisma.user.update({
-        where: { user_address: address },
+      console.log("here");
+      return prisma.domain.update({
+        where: { address: address },
         data: {
           display_name,
           bio,

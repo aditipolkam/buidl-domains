@@ -1,8 +1,8 @@
-type User {
+type Domain {
   name: String!
-  user_address: String!
+  address: String!
   token_id: Int!
-  registration_tx: String!
+  transaction_hash: String!
   block_number: Int!
   timestamp: String!
   display_name: String
@@ -11,16 +11,16 @@ type User {
 }
 
 type Query {
-  users: [User!]!
-  user(address: String!): User
-  user_by_name(name: String!): User
+  domains: [Domain!]!
+  domain(address: String!): Domain
+  domain_by_name(name: String!): Domain
 }
 
 type Mutation {
-  update_user(
+  update_metadata(
     address: String!
     display_name: String
     bio: String
     profession: String
-  ): User
+  ): Domain
 }
